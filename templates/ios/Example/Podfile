@@ -1,0 +1,22 @@
+source 'http://192.168.1.33:9090/Pods/Specs.git'
+source 'https://github.com/aliyun/aliyun-specs.git'
+source 'https://cdn.cocoapods.org/'
+
+platform :ios, '9.0'
+
+inhibit_all_warnings!
+use_modular_headers!
+
+#消除多源pod警告
+install! 'cocoapods', :deterministic_uuids => false, :integrate_targets => true, :warn_for_multiple_pod_sources => false
+
+target '${POD_NAME}_Example' do
+  eval(File.open('PodDevExtension.rb').read) if File.exist? 'PodDevExtension.rb'
+  pod '${POD_NAME}', :path => '../'
+
+  target '${POD_NAME}_Tests' do
+    inherit! :search_paths
+
+    ${INCLUDED_PODS}
+  end
+end

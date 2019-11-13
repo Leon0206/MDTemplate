@@ -1,0 +1,2 @@
+# Pod本地调试文件夹，格式如下
+# pod 'XYCategory', :path => '~/Documents/XYEnvironment/SRC/XYCategory'
