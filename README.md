@@ -5,7 +5,7 @@ change log, by Leon.
 4. 命令执行阶段：默认语言改为ObjC
 5. 命令执行阶段：testing frameworks默认为None
 6. 命令执行阶段：view base testing 默认为No
-7. 命令执行阶段：prefix 添加默认选项，默认为XY
+7. 命令执行阶段：prefix 添加默认选项，默认为MD
 8. 命令执行阶段：添加group选项
 
 
