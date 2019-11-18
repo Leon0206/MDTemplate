@@ -75,15 +75,15 @@ module Pod
       framework = "ObjC"
       ConfigureIOS.perform(configurator: self)
       @is_buessness_pod = 'no'
-      if @prefixes == 'XYViva'
-        @git_group = self.ask_with_answers("Which group do you want to use?", ["iOSVivaVideoComponentGroup", "iOSComponentGroup"])
+      if @prefixes == 'MD'
+        @git_group = self.ask_with_answers("Which group do you want to use?", ["Leon0206", "Others?"])
         `mkdir Pod/Assets/Assets.xcassets`
-        if @git_group == 'iosvivavideocomponentgroup'
+        if @git_group == 'Leon0206'
           @is_buessness_pod = 'yes'
         end
-      elsif @prefixes == 'XY'
-        @git_group = self.ask_with_answers("Which group do you want to use?", ["iOSComponentGroup", "iOSVivaVideoComponentGroup"])
-        if @git_group == 'iosvivavideocomponentgroup'
+      elsif @prefixes == 'MD'
+        @git_group = self.ask_with_answers("Which group do you want to use?", ["Leon0206", "Others?"])
+        if @git_group == 'Leon0206'
           @is_buessness_pod = 'yes'
         end
       else
@@ -91,19 +91,19 @@ module Pod
         @is_buessness_pod = self.ask_with_answers("Is business Pod?", ["Yes", "No"])
       end
 
-      if @git_group == "ioscomponentgroup"
-        @git_group = "ioscomponentgroup"
+      if @git_group == "Leon0206"
+        @git_group = "Leon0206"
       end
 
-      if @git_group == "iosvivavideocomponentgroup"
-        @git_group = "iosvivavideocomponentgroup"
+      if @git_group == "Leon0206"
+        @git_group = "Leon0206"
       end
       
       move_business_file
 
       replace_variables_in_files
       clean_template_files
-      delete_xy_prefix_and_dependency_in_podspec
+#      delete_xy_prefix_and_dependency_in_podspec
       rename_template_files
       add_pods_to_podfile
       customise_prefix
@@ -148,10 +148,8 @@ module Pod
    end
 
     def replace_variables_in_files
-      if @git_group == "ioscomponentgroup"
+      if @git_group == "Leon0206"
         file_names = ['POD_LICENSE', 'POD_README.md', 'NAME.podspec', '.travis.yml', podfile_path]
-      else
-        file_names = ['POD_LICENSE', 'POD_README.md', 'NAME.podspec', '.travis.yml', podfile_path, 'Pod/Classes/UIImage+NAME.h', 'Pod/Classes/UIImage+NAME.m']
       end
       
       file_names.each do |file_name|
@@ -168,7 +166,7 @@ module Pod
     end
 
     def move_business_file
-      if @git_group == "ioscomponentgroup"
+      if @git_group == "Leon0206"
         `rm -rf Pod/Classes/UIImage+NAME.*`
       end
     end
@@ -215,18 +213,18 @@ module Pod
       FileUtils.mv "POD_README.md", "README.md"
       FileUtils.mv "POD_LICENSE", "LICENSE"
       FileUtils.mv "NAME.podspec", "#{pod_name}.podspec"
-      if @is_buessness_pod == 'yes'
-        FileUtils.mv "Pod/Classes/UIImage+NAME.h", "Pod/Classes/UIImage+#{pod_name}.h"
-        FileUtils.mv "Pod/Classes/UIImage+NAME.m", "Pod/Classes/UIImage+#{pod_name}.m"
-      end
+#      if @is_buessness_pod == 'yes'
+#        FileUtils.mv "Pod/Classes/UIImage+NAME.h", "Pod/Classes/UIImage+#{pod_name}.h"
+#        FileUtils.mv "Pod/Classes/UIImage+NAME.m", "Pod/Classes/UIImage+#{pod_name}.m"
+#      end
     end
 
-    def delete_xy_prefix_and_dependency_in_podspec
-      if @is_buessness_pod == 'no'
-        `sed -i '' '/s.prefix_header_contents.*/d' NAME.podspec`
-        `sed -i '' "/s.dependency 'XYLocalizationManager'.*/d" NAME.podspec`
-      end
-    end
+#    def delete_xy_prefix_and_dependency_in_podspec
+     # if @is_buessness_pod == 'no'
+      #  `sed -i '' '/s.prefix_header_contents.*/d' NAME.podspec`
+     #   `sed -i '' "/s.dependency 'XYLocalizationManager'.*/d" NAME.podspec`
+      #end
+#    end
 
     def rename_classes_folder
       FileUtils.mv "Pod", @pod_name
