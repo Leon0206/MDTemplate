@@ -150,6 +150,8 @@ module Pod
     def replace_variables_in_files
       if @git_group == "Leon0206"
         file_names = ['POD_LICENSE', 'POD_README.md', 'NAME.podspec', '.travis.yml', podfile_path]
+     else
+        file_names = ['POD_LICENSE', 'POD_README.md', 'NAME.podspec', '.travis.yml', podfile_path, 'Pod/Classes/UIImage+NAME.h', 'Pod/Classes/UIImage+NAME.m']
       end
       
       file_names.each do |file_name|
