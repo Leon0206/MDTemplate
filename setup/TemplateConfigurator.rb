@@ -74,21 +74,21 @@ module Pod
       platform = "iOS"
       framework = "ObjC"
       ConfigureIOS.perform(configurator: self)
-      @is_buessness_pod = 'no'
+#      @is_buessness_pod = 'no'
       if @prefixes == 'MD'
         @git_group = self.ask_with_answers("Which group do you want to use?", ["Leon0206", "Others?"])
         `mkdir Pod/Assets/Assets.xcassets`
         if @git_group == 'Leon0206'
-          @is_buessness_pod = 'yes'
+#          @is_buessness_pod = 'yes'
         end
       elsif @prefixes == 'MD'
         @git_group = self.ask_with_answers("Which group do you want to use?", ["Leon0206", "Others?"])
         if @git_group == 'Leon0206'
-          @is_buessness_pod = 'yes'
+#          @is_buessness_pod = 'yes'
         end
       else
-        @git_group = self.ask("What group do you want to use?(low case)")
-        @is_buessness_pod = self.ask_with_answers("Is business Pod?", ["Yes", "No"])
+#        @git_group = self.ask("What group do you want to use?(low case)")
+#        @is_buessness_pod = self.ask_with_answers("Is business Pod?", ["Yes", "No"])
       end
 
       if @git_group == "Leon0206"
@@ -99,11 +99,11 @@ module Pod
         @git_group = "Leon0206"
       end
       
-      move_business_file
+#      move_business_file
 
       replace_variables_in_files
       clean_template_files
-#      delete_xy_prefix_and_dependency_in_podspec
+      delete_xy_prefix_and_dependency_in_podspec
       rename_template_files
       add_pods_to_podfile
       customise_prefix
@@ -165,11 +165,11 @@ module Pod
       end
     end
 
-    def move_business_file
-      if @git_group == "Leon0206"
-        `rm -rf Pod/Classes/UIImage+NAME.*`
-      end
-    end
+#    def move_business_file
+#      if @git_group == "Leon0206"
+#        `rm -rf Pod/Classes/UIImage+NAME.*`
+#      end
+#    end
 
     def add_pod_to_podfile podname
       @pods_for_podfile << podname
@@ -219,12 +219,12 @@ module Pod
 #      end
     end
 
-#    def delete_xy_prefix_and_dependency_in_podspec
+    def delete_xy_prefix_and_dependency_in_podspec
      # if @is_buessness_pod == 'no'
       #  `sed -i '' '/s.prefix_header_contents.*/d' NAME.podspec`
      #   `sed -i '' "/s.dependency 'XYLocalizationManager'.*/d" NAME.podspec`
       #end
-#    end
+    end
 
     def rename_classes_folder
       FileUtils.mv "Pod", @pod_name
